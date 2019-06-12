@@ -79,43 +79,46 @@ char str2[2] = {'1', '\0'};
 			cin >> path;
 
 			main_menu.openFile(path);
-			cout << main_menu.getStatus() << endl;
+			cout << "Successfully opened" << path << endl;
 		}
 
 		else if (strcmp(command, "close") == 0 && main_menu.getStatus())
 		{
 			main_menu.closeFile();
-			cout << main_menu.getStatus() << endl;
-
+			cout << "Successfully closed " << path << endl;
 		}
 
 		else if (strcmp(command, "save") == 0 && main_menu.getStatus())
 		{
-			cout << "Command: " << command << " was mapped to: 3" << endl;
+			main_menu.saveFile();
 
-			cout << "Path: " << path << endl;
-
-			_save();
+			cout << "Successfully saved " << path << endl;
 		}
 
 		else if (strcmp(command, "save_as") == 0 && main_menu.getStatus())
 		{
 			cin >> path;
 
-			cout << "Command: " << command << " was mapped to: 4" << endl;
+			main_menu.saveAsFile(path);
 
-			_saveAs();
+			cout << "Successfully saved as " << path << endl;
 		}
 
 		else if (strcmp(command, "print") == 0 && main_menu.getStatus())
 		{
-			cout << "Command: " << command << " was mapped to: 1.1" << endl;
 			main_menu.getFigures().printAllFigures();
 		}
 
 		else if (strcmp(command, "create") == 0 && main_menu.getStatus())
 		{
 			cout << "Command: " << command << " was mapped to: 1.1" << endl;
+
+			//Rect(double _x1, double _y1, double _stroke_width, char* _stroke, char* _fill, double _width, double _height)
+			//Line(double _x1, double _y1, double _stroke_width, char* _stroke, double _x2, double _y2)
+			//Circle(double _cx, double _cy, double _r, double _stroke_width, char* _stroke, char* _fill)
+
+			//double x1, y1, x2, y2, stroke_width, width, height, radius;
+
 
 			if (strcmp(command, "line") == 0)
 			{
@@ -141,7 +144,11 @@ char str2[2] = {'1', '\0'};
 
 		else if (strcmp(command, "translate") == 0 && main_menu.getStatus())
 		{
-			cout << "Command: " << command << " was mapped to: 1.1" << endl;
+			double _tx, _ty;
+
+			cin >> _tx >> _ty;
+
+			main_menu.translateFigures(_tx, _ty);
 		}
 
 		else if (strcmp(command, "within") == 0 && main_menu.getStatus())
@@ -156,6 +163,7 @@ char str2[2] = {'1', '\0'};
 
 		else if (strcmp(command, "exit") == 0 || strcmp(command, "Exit") == 0)
 		{
+			cout << "Exiting the program...\n";
 			return 0;
 		}
 

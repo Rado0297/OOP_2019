@@ -22,7 +22,17 @@ const void SVGDocument::printAllFigures() const
 {
 	for (int i = 0; i < currentCircle; ++i)
 	{
-		cout << circles[i] << endl;
+		cout << "Circles index: " << i << " " << circles[i] << endl;
+	}
+
+	for (int i = 0; i < currentRect; ++i)
+	{
+		cout << "Rects index: " << i << " "  << rects[i] << endl;
+	}
+
+	for (int i = 0; i < currentLine; ++i)
+	{
+		cout << "Lines index: " << i << " "  << lines[i] << endl;
 	}
 }
 
@@ -75,6 +85,56 @@ void SVGDocument::addLine(ifstream& _file, string line, char* _stroke)
 
 	lines[currentLine] = obj_line;
 	currentLine++;
+}
+
+void SVGDocument::translateAllFigures(double _tx, double _ty)
+{
+	for (int i = 0; i < currentCircle; ++i)
+	{
+		circles[i].translate(_tx, _ty);
+	}
+
+	for (int i = 0; i < currentRect; ++i)
+	{
+		rects[i].translate(_tx, _ty);
+	}
+
+	for (int i = 0; i < currentLine; ++i)
+	{
+		lines[i].translate(_tx, _ty);
+	}
+
+	cout << "All figures had been translated!\n";
+}
+
+void SVGDocument::onClose()
+{
+	reset();
+}
+
+//Getters
+const int SVGDocument::getCoutOfFigures() const
+{
+	return currentLine + currentRect + currentCircle;
+}
+
+//For writing into a file
+const void SVGDocument::getAllFigures(ofstream& _ofile) const
+{
+	for (int i = 0; i < currentCircle; ++i)
+	{
+		_ofile << '\t' << circles[i] << endl;
+	}
+
+	for (int i = 0; i < currentRect; ++i)
+	{
+		_ofile << '\t' << rects[i] << endl;
+	}
+
+	for (int i = 0; i < currentLine; ++i)
+	{
+		_ofile << '\t' << lines[i] << endl;
+	}
 }
 
 //Extra functions

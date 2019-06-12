@@ -30,9 +30,7 @@ const void Menu::listOptions() const
 //Open
 void Menu::openFile(const char* _path)
 {
-	path = new char[strlen(_path) + 1];
-	assert(path != nullptr);
-	strcpy(path, _path);
+	changePath(_path);
 
 	isOpen = true;
 
@@ -86,23 +84,64 @@ const SVGDocument& Menu::getFigures() const
 //Erase figure
 
 //Translate
-void Menu::translateFigure(double _tx, double _ty)
+void Menu::translateFigures(double _tx, double _ty)
 {
-
+	figures.translateAllFigures(_tx, _ty);
 }
 
 //Within
+//void Menu::within()
 
 //Close
 void Menu::closeFile()
 {
+	figures.onClose();
+	//figures.~SVGDocument();
 	isOpen = false;
 	cout << "Successfully closed file " << path << endl;
 }
 
 //Save
+void Menu::saveFile()
+{
+	ofstream _ofile;
+	_ofile.open(path);
+
+	if (_ofile.is_open())
+	{
+		_ofile << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+				<< "<!DOCTYPE svg>\n"
+				<< "<svg>\n";
+    
+		figures.getAllFigures(_ofile);
+
+		_ofile << "</svg>\n";
+	}
+
+	_ofile.close();
+}
 
 //SaveAs
+void Menu::saveAsFile(const char* _path)
+{
+	changePath(_path);
+
+	ofstream _ofile;
+	_ofile.open(path);
+
+	if (_ofile.is_open())
+	{
+		_ofile << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+				<< "<!DOCTYPE svg>\n"
+				<< "<svg>\n";
+    
+		figures.getAllFigures(_ofile);
+
+		_ofile << "</svg>\n";
+	}
+
+	_ofile.close();
+}
 
 //Help
 const void Menu::helpMenu() const

@@ -22,6 +22,14 @@ private:
 
 	ifstream _file;
 
+	void changePath(const char* _path)
+	{
+		delete[] path;
+		path = new char[strlen(_path) + 1];
+		assert(path != nullptr);
+		strcpy(path, _path);
+	}
+
 public:
 	Menu();
 
@@ -45,7 +53,7 @@ public:
 	//Erase
 
 	//Translate
-	void translateFigure(double _tx, double _ty);
+	void translateFigures(double _tx, double _ty);
 
 	//Within
 
@@ -53,8 +61,10 @@ public:
 	void closeFile();
 
 	//Save
+	void saveFile();
 
 	//SaveAs
+	void saveAsFile(const char* path);
 
 	//Help
 	const void helpMenu() const;
